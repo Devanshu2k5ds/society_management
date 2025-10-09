@@ -5,9 +5,11 @@ import './App.css'
 import React from 'react'
 import {Routes , Route} from 'react-router-dom'
 import First from './pages/first'
+import Navbar from '../components/navbar'
 const App = () => {
   return(
     <div>
+      <Navbar />
       <Routes>
         <Route path="/" element={<First/>} />
       </Routes>
