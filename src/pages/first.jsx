@@ -10,6 +10,7 @@ import Environment_image from '../../src/assets/environment.jpeg'
 import Fitness_image from '../../src/assets/fitness.jpeg'
 import Literature_image from '../../src/assets/literature.jpeg'
 import Middle from '../../components/Middle';
+import Footer from '../../components/footer';
 const First = () => {
     const { count, setCount } = useAppContext();
     return (
@@ -32,6 +33,7 @@ const First = () => {
             </div>
             </div>
             <Middle/>
+            <Footer/>
         </div>
     )
 };
