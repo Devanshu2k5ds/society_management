@@ -1,8 +1,10 @@
 import { useState , useContext , useEffect , createContext } from "react";
 export const AppContext = createContext();
 export const AppContextProvider = ({children}) =>{
-    const [count , setCount] = useState(0);
-    const value = {count,setCount};
+    const [Count , setCount] = useState(0);
+    const [IsLogin , setLogin] = useState(false);
+    const [ShowPassword , setShowPassword] = useState(false);
+    const value = {Count,setCount,IsLogin , setLogin , ShowPassword,setShowPassword};
     return <AppContext.Provider value = {value}>
         {children}
     </AppContext.Provider>
