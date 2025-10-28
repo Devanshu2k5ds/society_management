@@ -1,11 +1,15 @@
 import React from 'react'
 import { useAppContext } from '../../context/AppContext'
-import { NavLink } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 const Login = () => {
-    const { ShowPassword, setShowPassword } = useAppContext();
+    const { ShowPassword, setShowPassword,ShowConfirmPassword, setShowConfirmPassword,setIsRegistering,isRegistering} = useAppContext();
     function changePassword() {
         setShowPassword(!ShowPassword);
     }
+    function changeConfirmPassword(){
+        setShowConfirmPassword(!ShowConfirmPassword)
+    }
+    const navigate = useNavigate();
     return (
         <div>
             <div className='flex h-screen'>
@@ -14,22 +18,38 @@ const Login = () => {
                     <h1 className='text-3xl font-medium mb-1 mt-5'>Welcome Back</h1>
                     <p className='text-gray-500'>Sign in to your SocietyHub account</p>
                     <div className='mt-5'>
-                        <form>
+                        <form method="POST" action="http://localhost:3000/submit">
+                        {isRegistering&&(
+                        <>
+                        <label htmlFor="name" className='block text-start '>Name</label>
+                            <input type="text" className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' placeholder='  Enter your name' required id="name" name="name" autoFocus autoComplete='off' /></>)}
                             <label htmlFor="email" className='block text-start '>Email Address</label>
-                            <input type="text" className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-5 mt-1' placeholder='&#128231;    Enter your email' required id="email" name="email" autoFocus autoComplete='off' />
+                            <input type="email" className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' placeholder='&#128231;    Enter your email' required id="email" name="email" autoFocus autoComplete='off' />
                             <label htmlFor="password" className='block text-start'>Password</label>
                             <div className='relative'>
                                 <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowPassword ? "text" : "password"} placeholder='&#128274;    Enter your password' required id="password" name="password" />
-                                <button onClick={changePassword} className='absolute right-5 top-4'>&#128065;</button>
+                                <button type="button"onClick={changePassword} className='absolute right-5 top-4'>&#128065;</button>
                             </div>
-                            <div className='flex justify-between mb-4'>
+                            <div className='flex justify-between mb-2'>
                                 <div className='flex items-center'>
                                     <input type="checkbox" class="remember" id="remember" className='size-4 mr-2' />
                                     <label className='text-gray-600' htmlFor="remember">Remember me</label>
                                 </div>
-                                <NavLink to="/Forgot-password" className="text-blue-600 font-medium hover:underline" >Forgot Password?</NavLink>
+                                <button onClick={()=> navigate("/Forgot-password")} className="text-blue-600 font-medium hover:underline" >Forgot Password?</button>
                             </div>
-                            <button type='submit' className={`cursor-pointer bg-blue-600 w-full py-2 border rounded-lg text-white font-medium mb-2`}>Sign In</button>
+                            {isRegistering&&(<>
+                            <label htmlFor="confirm-password" className='block text-start'>Confirm Password</label>
+                            <div className='relative'>
+                                <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowConfirmPassword ? "text" : "password"} placeholder='&#128274;    Confirm your password' required id="confirm-password" name="confirm-password" />
+                                <button type="button"onClick={changeConfirmPassword} className='absolute right-5 top-4'>&#128065;</button>
+                            </div></>)}
+                            <div onClick={()=>setIsRegistering(!isRegistering)} className='text-start flex gap-x-3 mt-1 mb-2 cursor-pointer'>
+                                <p  className='text-gray-600'>{isRegistering ? "Already have an account" : "You don't have an account"}</p>
+                                <p  className='font-medium text-blue-600 cursor-pointer hover:underline'> {isRegistering ? "Login" : "Register"}</p>
+                            </div>
+                            <div className='flex '>
+                            <button type='submit' className={`cursor-pointer bg-blue-600 w-full py-2 border rounded-lg text-white font-medium mb-2`}>{isRegistering ? "Register" : "Sign In"}</button>
+                            </div>
                             <div className='flex items-center '>
                                 <div className='w-full border h-0 px-8 border-gray-500'></div>
                                 <p className='w-full text-gray-600'>Or continue with</p>
