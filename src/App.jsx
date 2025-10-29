@@ -9,7 +9,6 @@ import Navbar from '../components/navbar'
 import Login from './pages/Login'
 import {useAppContext } from '../context/AppContext'
 import ForgotPassword from './pages/Forgot-password'
-import Register from './pages/Register'
 const App = () => {
   const {IsLogin } = useAppContext();
   // console.log(IsLogin)
@@ -20,7 +19,6 @@ const App = () => {
         <Route path="/" element={ IsLogin ?<First/> : <Navigate to="/login"/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/Forgot-password" element={<ForgotPassword />} />
-        <Route path="/register" element={<Register/>}/>
       </Routes>
     </div>
 )}

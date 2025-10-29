@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAppContext } from '../../context/AppContext'
 import { useNavigate} from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
     const { ShowPassword, setShowPassword,ShowConfirmPassword, setShowConfirmPassword,setIsRegistering,isRegistering} = useAppContext();
     function changePassword() {
@@ -8,6 +9,18 @@ const Login = () => {
     }
     function changeConfirmPassword(){
         setShowConfirmPassword(!ShowConfirmPassword)
+    }
+    const handleSubmit= async (e)=>{
+        e.preventDefault();
+        try{
+            const endpoint = isRegistering ? "https://localhost:3000/register": "https://localhost:3000/login" ;
+            const data1 = isRegistering ? {name : form.name , email : form.email, password:form.password , confirmPassord:form.confirmPassword}: {email:form.email, password:form.password};
+            const {data} = await axios.post(endpoint,data1);
+            console.log(data);
+        }
+        catch(error){
+            console.log(error);
+        }
     }
     const navigate = useNavigate();
     return (
@@ -18,7 +31,7 @@ const Login = () => {
                     <h1 className='text-3xl font-medium mb-1 mt-5'>Welcome Back</h1>
                     <p className='text-gray-500'>Sign in to your SocietyHub account</p>
                     <div className='mt-5'>
-                        <form method="POST" action="http://localhost:3000/submit">
+                        <form onSubmit={handleSubmit}>
                         {isRegistering&&(
                         <>
                         <label htmlFor="name" className='block text-start '>Name</label>
@@ -38,9 +51,9 @@ const Login = () => {
                                 <button onClick={()=> navigate("/Forgot-password")} className="text-blue-600 font-medium hover:underline" >Forgot Password?</button>
                             </div>
                             {isRegistering&&(<>
-                            <label htmlFor="confirm-password" className='block text-start'>Confirm Password</label>
+                            <label htmlFor="confirmPassword" className='block text-start'>Confirm Password</label>
                             <div className='relative'>
-                                <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowConfirmPassword ? "text" : "password"} placeholder='&#128274;    Confirm your password' required id="confirm-password" name="confirm-password" />
+                                <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowConfirmPassword ? "text" : "password"} placeholder='&#128274;    Confirm your password' required id="confirmPassword" name="confirmPassword" />
                                 <button type="button"onClick={changeConfirmPassword} className='absolute right-5 top-4'>&#128065;</button>
                             </div></>)}
                             <div onClick={()=>setIsRegistering(!isRegistering)} className='text-start flex gap-x-3 mt-1 mb-2 cursor-pointer'>
