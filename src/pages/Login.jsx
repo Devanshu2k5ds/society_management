@@ -1,24 +1,36 @@
-import React from 'react'
+import {React,useState} from 'react'
 import { useAppContext } from '../../context/AppContext'
 import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 const Login = () => {
     const { ShowPassword, setShowPassword,ShowConfirmPassword, setShowConfirmPassword,setIsRegistering,isRegistering} = useAppContext();
+    const [form,setform] = useState({email:"",password:""});
+    const [message,setMessage] = useState("");
     function changePassword() {
         setShowPassword(!ShowPassword);
     }
+    function toggleMode(){
+        setIsRegistering(!isRegistering);
+        setMessage("");
+        setform({name:"",email:"",password:"",confirmPassword:""});
+    }
+        function handleInputChange(e){
+            setform({...form,[e.target.name]:e.target.value})
+        }
     function changeConfirmPassword(){
         setShowConfirmPassword(!ShowConfirmPassword)
     }
     const handleSubmit= async (e)=>{
         e.preventDefault();
         try{
-            const endpoint = isRegistering ? "https://localhost:3000/register": "https://localhost:3000/login" ;
-            const data1 = isRegistering ? {name : form.name , email : form.email, password:form.password , confirmPassord:form.confirmPassword}: {email:form.email, password:form.password};
+            const endpoint = isRegistering ? "http://localhost:3000/register": "http://localhost:3000/login" ;
+            const data1 = isRegistering ? {name : form.name , email : form.email, password:form.password , confirmPassword:form.confirmPassword}: {email:form.email, password:form.password};
             const {data} = await axios.post(endpoint,data1);
+            setMessage(data.message);
             console.log(data);
         }
         catch(error){
+            setMessage(error.response?.data?.message || "An error occurred");
             console.log(error);
         }
     }
@@ -35,12 +47,12 @@ const Login = () => {
                         {isRegistering&&(
                         <>
                         <label htmlFor="name" className='block text-start '>Name</label>
-                            <input type="text" className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' placeholder='  Enter your name' required id="name" name="name" autoFocus autoComplete='off' /></>)}
+                            <input type="text" onChange={handleInputChange} className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' value={form.name} placeholder='  Enter your name' required id="name" name="name" autoFocus autoComplete='off' /></>)}
                             <label htmlFor="email" className='block text-start '>Email Address</label>
-                            <input type="email" className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' placeholder='&#128231;    Enter your email' required id="email" name="email" autoFocus autoComplete='off' />
+                            <input type="email" onChange={handleInputChange} className='w-full border-gray-500 rounded-lg py-2 border px-2 focus:outline-none mb-3 mt-1' value={form.email} placeholder='&#128231;    Enter your email' required id="email" name="email" autoFocus autoComplete='off' />
                             <label htmlFor="password" className='block text-start'>Password</label>
                             <div className='relative'>
-                                <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowPassword ? "text" : "password"} placeholder='&#128274;    Enter your password' required id="password" name="password" />
+                                <input onChange={handleInputChange} className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowPassword ? "text" : "password"} value={form.password} placeholder='&#128274;    Enter your password' required id="password" name="password" />
                                 <button type="button"onClick={changePassword} className='absolute right-5 top-4'>&#128065;</button>
                             </div>
                             <div className='flex justify-between mb-2'>
@@ -48,18 +60,19 @@ const Login = () => {
                                     <input type="checkbox" class="remember" id="remember" className='size-4 mr-2' />
                                     <label className='text-gray-600' htmlFor="remember">Remember me</label>
                                 </div>
-                                <button onClick={()=> navigate("/Forgot-password")} className="text-blue-600 font-medium hover:underline" >Forgot Password?</button>
+                                <button type="button" onClick={()=> navigate("/Forgot-password")} className="text-blue-600 font-medium hover:underline" >Forgot Password?</button>
                             </div>
                             {isRegistering&&(<>
                             <label htmlFor="confirmPassword" className='block text-start'>Confirm Password</label>
                             <div className='relative'>
-                                <input className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowConfirmPassword ? "text" : "password"} placeholder='&#128274;    Confirm your password' required id="confirmPassword" name="confirmPassword" />
+                                <input onChange={handleInputChange} className='w-full py-2 border border-gray-500 focus:outline-none rounded-lg px-2 mt-1 mb-2' type={ShowConfirmPassword ? "text" : "password"} value={form.confirmPassword} placeholder='&#128274;    Confirm your password' required id="confirmPassword" name="confirmPassword" />
                                 <button type="button"onClick={changeConfirmPassword} className='absolute right-5 top-4'>&#128065;</button>
                             </div></>)}
-                            <div onClick={()=>setIsRegistering(!isRegistering)} className='text-start flex gap-x-3 mt-1 mb-2 cursor-pointer'>
+                            <div onClick={toggleMode} className='text-start flex gap-x-3 mt-1 mb-2 cursor-pointer'>
                                 <p  className='text-gray-600'>{isRegistering ? "Already have an account" : "You don't have an account"}</p>
                                 <p  className='font-medium text-blue-600 cursor-pointer hover:underline'> {isRegistering ? "Login" : "Register"}</p>
                             </div>
+                                {message && <><p className={`text-start mb-1 ${message.includes("success")?"text-green-600":"text-red-600"}`}>{message}</p></>}
                             <div className='flex '>
                             <button type='submit' className={`cursor-pointer bg-blue-600 w-full py-2 border rounded-lg text-white font-medium mb-2`}>{isRegistering ? "Register" : "Sign In"}</button>
                             </div>
