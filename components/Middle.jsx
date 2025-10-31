@@ -1,10 +1,12 @@
 import React from 'react'
+
 import SmallCard from '../../vite-project/components/SmallCard'
 const Middle = () => {
     const logo1 = "https://img.icons8.com/color/48/eco-driving-indicator.png";
     const logo2 = "https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-hackathon-ux-and-ui-flaticons-flat-flat-icons.png"
     const logo3 = "https://img.icons8.com/office/40/music.png"
   return (
+    
     <div className='mt-5'>
       <h1 className='text-3xl font-medium'>Upcoming Events</h1>
       <p className='mt-3'>Don't miss out on these exciting upcoming events and activities</p>

@@ -9,7 +9,7 @@ const Footer = () => {
     const logo6 ="https://img.icons8.com/ios-filled/15/FFFFFF/mail.png"
     return (
 
-        <div className='bg-black text-white'>
+        <div className='bg-gray-800 text-white'>
             <h1 className='text-4xl pt-10'>Get Started Today</h1>
             <p className='text-gray-500 m-5'>Join our community and make the most of your college experience</p>
             <div className='flex justify-center gap-20 mt-10 mb-10  '>
@@ -17,7 +17,7 @@ const Footer = () => {
                 <FooterCard logo={logo2} title="Attend Events" content="Participate in exciting events and actiities happening in campus " button_title="View Events" color="green" />
                 <FooterCard logo={logo3} title="Create Society" content="Start your own society and build a community around your interests" button_title="Get Started" color="purple" />
             </div>
-            <div className='flex border-t-1 border-gray-400 bg-gray-800 w-full justify-around px-20 pt-13 pb-13'>
+            <div className='flex border-t-1 border-gray-400 bg-gray-700 w-full justify-around px-20 pt-13 pb-13'>
                 <div className='flex flex-col items-start space-y-4 w-[5in] text-start'>
                     <h1 className='text-2xl font-medium '>Society Hub</h1>
                     <p>Connecting students through societies, events and shared experiences.</p>
@@ -51,7 +51,7 @@ const Footer = () => {
                 </ul>
             </div>
         </div>
-        <div className='bg-gray-800 px-25'>
+        <div className='bg-gray-700 px-25'>
 
         <div className=' border-t-1 border-gray-600 px-20 m-auto py-6'>
             <p className='font-medium'>© 2024 SocietyHub, All rights reserved.</p>

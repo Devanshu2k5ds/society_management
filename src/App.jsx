@@ -16,8 +16,8 @@ const App = () => {
     <div>
       {IsLogin&&<Navbar />}
       <Routes>
-        <Route path="/" element={ IsLogin ?<First/> : <Navigate to="/login"/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/" element={<Login/>} />
+        <Route path="/home"element={<First/>}></Route>
         {/* <Route path="/Forgot-password" element={<ForgotPassword />} /> */}
       </Routes>
     </div>

@@ -11,16 +11,18 @@ import Fitness_image from '../../src/assets/fitness.jpeg'
 import Literature_image from '../../src/assets/literature.jpeg'
 import Middle from '../../components/Middle';
 import Footer from '../../components/footer';
+import {Element} from 'react-scroll'
 const First = () => {
     const { count, setCount } = useAppContext();
     return (
         <div>
             <Mainbanner />
             <Numericals />
+            <Element name="explore_society">
             <div className='bg-gray-600/8'>
 
             <div className='space-y-5 my-5 mx-auto w-[600px] pt-10'>
-            <h1 className='text-4xl font-medium' >Our Partner Socities</h1>
+            <h1 className='text-4xl font-medium' >Explore Our Diverse Societies</h1>
             <p className='text-gray-600 mb-7 '>Discover the diverse range of socities that make our college community vibrant and engaging</p>
             </div>
             <div className="mx-auto max-w-7xl py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 auto-rows-fr ">
@@ -32,6 +34,7 @@ const First = () => {
                 <Society_card src={Literature_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-orange-600"/>
             </div>
             </div>
+            </Element>
             <Middle/>
             <Footer/>
         </div>

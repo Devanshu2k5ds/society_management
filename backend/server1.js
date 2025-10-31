@@ -30,10 +30,10 @@ app.post("/register", async (req, res) => {
         const { name, email, password, confirmPassword } = req.body;
         const row = await db.query("SELECT * from login where email=$1",[email]);
         if(row.rows.length>0){
-            return res.status(400).json({message:"User already exists"})
+            return res.status(400).json({message:"User already exists",success:false})
         }
         if(password!=confirmPassword){
-            return res.status(400).json({message: "Please enter same password in both fields"});
+            return res.status(400).json({message: "Please enter same password in both fields",success:false});
         }
         async function hashPassword(){
             const hashedPassword = await bcrypt.hash(password,saltrounds)
@@ -45,8 +45,7 @@ app.post("/register", async (req, res) => {
             [name, email, hashedPassword, confirmPassword]
         );
         console.log('Data inserted successfully:', result.rows[0]);
-        res.status(200).json({message:"member registered succesfully"});
-        res.redirect("/home")     
+        res.status(200).json({message:"member registered succesfully",success:true});    
     } catch (error) {
         console.error('Error inserting data:', error);
         res.status(500).json({ 
@@ -66,14 +65,14 @@ app.post("/login", async (req, res) => {
             "SELECT * from login where email=$1",[email]
         );
         if(result.rows.length===0){
-            return res.status(400).json({message:"invalid credentials"});
+            return res.status(400).json({message:"Email is not registered",success:false});
         }
         const isMatch = await bcrypt.compare(password,result.rows[0].password)
         if(isMatch){
-            res.status(200).json({message:"user verified"});
+            res.status(200).json({message:"user verified",success:true});
         }
         else{
-            res.status(400).json({message:"Invalid credentials"});
+            res.status(400).json({message:"Invalid credentials",success:false});
         }
     } catch (error) {
         console.error('Error inserting data:', error);

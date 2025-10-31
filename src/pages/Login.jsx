@@ -3,9 +3,10 @@ import { useAppContext } from '../../context/AppContext'
 import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 const Login = () => {
-    const { ShowPassword, setShowPassword,ShowConfirmPassword, setShowConfirmPassword,setIsRegistering,isRegistering} = useAppContext();
+    const { ShowPassword, setShowPassword,ShowConfirmPassword, setShowConfirmPassword,setIsRegistering,isRegistering,isLogin,setIsLogin} = useAppContext();
     const [form,setform] = useState({email:"",password:""});
     const [message,setMessage] = useState("");
+    const [response,setResponse] = useState(false);
     function changePassword() {
         setShowPassword(!ShowPassword);
     }
@@ -27,11 +28,13 @@ const Login = () => {
             const data1 = isRegistering ? {name : form.name , email : form.email, password:form.password , confirmPassword:form.confirmPassword}: {email:form.email, password:form.password};
             const {data} = await axios.post(endpoint,data1);
             setMessage(data.message);
-            console.log(data);
+            setResponse(data.success);
+            console.log(data.success);
         }
         catch(error){
             setMessage(error.response?.data?.message || "An error occurred");
-            console.log(error);
+            console.log(error.response?.data?.success);
+            setResponse(error.response?.data?.success);
         }
     }
     const navigate = useNavigate();
@@ -57,7 +60,7 @@ const Login = () => {
                             </div>
                             <div className='flex justify-between mb-2'>
                                 <div className='flex items-center'>
-                                    <input type="checkbox" class="remember" id="remember" className='size-4 mr-2' />
+                                    <input type="checkbox" name="remember" id="remember" className='size-4 mr-2' />
                                     <label className='text-gray-600' htmlFor="remember">Remember me</label>
                                 </div>
                                 <button type="button" onClick={()=> navigate("/Forgot-password")} className="text-blue-600 font-medium hover:underline" >Forgot Password?</button>
@@ -72,9 +75,9 @@ const Login = () => {
                                 <p  className='text-gray-600'>{isRegistering ? "Already have an account" : "You don't have an account"}</p>
                                 <p  className='font-medium text-blue-600 cursor-pointer hover:underline'> {isRegistering ? "Login" : "Register"}</p>
                             </div>
-                                {message && <><p className={`text-start mb-1 ${message.includes("success")?"text-green-600":"text-red-600"}`}>{message}</p></>}
+                                {message && <><p className={`text-start mb-1 ${response?"text-green-600":"text-red-600"}`}>{message}</p></>}
                             <div className='flex '>
-                            <button type='submit' className={`cursor-pointer bg-blue-600 w-full py-2 border rounded-lg text-white font-medium mb-2`}>{isRegistering ? "Register" : "Sign In"}</button>
+                            <button type='submit' onSubmit={response?(navigate("/home"),setIsLogin(true)):""} className={`cursor-pointer bg-blue-600 w-full py-2 border rounded-lg text-white font-medium mb-2`}>{isRegistering ? "Register" : "Sign In"}</button>
                             </div>
                             <div className='flex items-center '>
                                 <div className='w-full border h-0 px-8 border-gray-500'></div>

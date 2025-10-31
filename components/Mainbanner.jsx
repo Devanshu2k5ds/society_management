@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-scroll'
 const Mainbanner = () => {
   return (
     <div className='relative bg-gradient-to-r from-blue-600 to-purple-700 h-120 flex'>
@@ -7,8 +7,19 @@ const Mainbanner = () => {
       <h1 className='text-3xl md:text-4xl lg:text-5xl font-medium'>Welcome to Society Hub</h1>
       <p className='text-xl w-145 text-start font-light'>Your central platform for managing college societies, events, and community engagement</p>
       <div className='display-flex space-x-5'>
-        <button className='border rounded p-2 px-3 bg-white text-blue-600 font-medium'>Explore Socities</button>
-        <button className='border rounded p-2 px-5 font-medium'>Join Events</button>
+        <Link 
+          to="explore_society" 
+          smooth={true} 
+          duration={600}
+          className='inline-block'
+        >
+          <button className='border rounded hover:cursor-pointer p-2 px-3 bg-white text-blue-600 font-medium hover:scale-110 transition-transform duration-300 ease-in-out'>
+            Explore Societies
+          </button>
+        </Link>
+        <button className='border rounded hover:cursor-pointer p-2 px-5 font-medium hover:scale-110 transition-transform duration-300 ease-in-out'>
+          Join Events
+        </button>
       </div>
         </div>
         <div className='inset-0 flex justify-center bg-white/10 backdrop-blur-md shadow-md h-auto my-auto p-6 ml-40 rounded-2xl  text-white'>
