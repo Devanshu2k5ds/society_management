@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom'
 const Society_card = (props) => {
+    const navigate = useNavigate();
     
     return (
         <div className='rounded-2xl w-full bg-white overflow-hidden shadow-md flex flex-col'>
@@ -13,7 +14,7 @@ const Society_card = (props) => {
                 <p className='text-[15px] mb-4'>{props.Content}</p>
                 <div className='flex items-center justify-between'>
                     <p className='text-sm'>{props.joiny}+ Members</p>
-                    <button className={`px-4 py-2 ${props.color} text-white rounded-md`}>View More</button>
+                    <button onClick={()=>navigate(props.link)} className={`px-4 py-2 ${props.color} text-white rounded-md`}>View More</button>
                 </div>
             </div>
         </div>

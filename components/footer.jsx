@@ -1,6 +1,8 @@
 import React from 'react'
 import FooterCard from './FooterCard'
+import { useNavigate } from 'react-router-dom'
 const Footer = () => {
+    const navigate = useNavigate();
     const logo1 = "https://img.icons8.com/fluency/48/microsoft-people.png"
     const logo2 = "https://img.icons8.com/color/48/today.png"
     const logo3 = "https://img.icons8.com/ios-filled/50/7950F2/rating-circled.png"
@@ -13,9 +15,30 @@ const Footer = () => {
             <h1 className='text-4xl pt-10'>Get Started Today</h1>
             <p className='text-gray-500 m-5'>Join our community and make the most of your college experience</p>
             <div className='flex justify-center gap-20 mt-10 mb-10  '>
-                <FooterCard logo={logo1} title="Join Socities" content="Discover and join socities that match your interests and passion" button_title="Browse Socities" color="blue" />
-                <FooterCard logo={logo2} title="Attend Events" content="Participate in exciting events and actiities happening in campus " button_title="View Events" color="green" />
-                <FooterCard logo={logo3} title="Create Society" content="Start your own society and build a community around your interests" button_title="Get Started" color="purple" />
+                <FooterCard 
+                    logo={logo1} 
+                    title="Join Societies" 
+                    path="/societies"
+                    content="Discover and join societies that match your interests and passion" 
+                    button_title="Browse Societies" 
+                    color="blue" 
+                />
+                <FooterCard 
+                    logo={logo2} 
+                    title="Attend Events" 
+                    path="/events"
+                    content="Participate in exciting events and activities happening in campus" 
+                    button_title="View Events" 
+                    color="green" 
+                />
+                <FooterCard 
+                    logo={logo3} 
+                    title="Create Society" 
+                    path="/create_society"
+                    content="Start your own society and build a community around your interests" 
+                    button_title="Get Started" 
+                    color="purple" 
+                />
             </div>
             <div className='flex border-t-1 border-gray-400 bg-gray-700 w-full justify-around px-20 pt-13 pb-13'>
                 <div className='flex flex-col items-start space-y-4 w-[5in] text-start'>

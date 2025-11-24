@@ -26,12 +26,12 @@ const First = () => {
             <p className='text-gray-600 mb-7 '>Discover the diverse range of socities that make our college community vibrant and engaging</p>
             </div>
             <div className="mx-auto max-w-7xl py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 auto-rows-fr ">
-                <Society_card src={Tech_Image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450}  color="bg-red-600"/>
-                <Society_card src={Arts_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-green-600"/>
-                <Society_card src={Business_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-purple-600"/>
-                <Society_card src={Environment_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-blue-600"/>
-                <Society_card src={Fitness_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-yellow-600"/>
-                <Society_card src={Literature_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-orange-600"/>
+                <Society_card src={Tech_Image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450}  color="bg-red-600" link="/tech"/>
+                <Society_card src={Arts_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-green-600" link="/tech"/>
+                <Society_card src={Business_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-purple-600" link="/business"/>
+                <Society_card src={Environment_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-blue-600" link="/environment"/>
+                <Society_card src={Fitness_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-yellow-600" link="/fitness"/>
+                <Society_card src={Literature_image} alt="Tech_Image" title="Tech Societies" Content="Leading technology innovation and coding competitions across campus." joiny={450} color="bg-orange-600" link="/literature"/>
             </div>
             </div>
             </Element>

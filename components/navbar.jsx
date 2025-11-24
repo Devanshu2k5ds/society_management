@@ -5,9 +5,9 @@ const Navbar = () => {
     const { setIsLogin } = useAppContext();
     const navigate = useNavigate();
   return (
-    <div className='flex justify-between items-center p-4 shadow-md'>
+    <div className='sticky top-0 left-0 right-0 z-50 bg-white flex justify-between items-center p-4 shadow-md'>
       <div>
-        <h1 className='text-2xl font-bold text-blue-600'>SocietyHub</h1>
+        <h1 className='text-2xl font-bold text-blue-600 hover:cursor-pointer' onClick={()=>navigate("/home")}>SocietyHub</h1>
       </div>
       <div className='flex gap-8'>
         <NavLink 
