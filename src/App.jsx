@@ -11,6 +11,7 @@ import {useAppContext } from '../context/AppContext'
 import Tech from '../components/Tech'
 import ForgotPassword from './pages/Forgot-password'
 import Society_form from '../components/society_form'
+import Page from '../src/pages/page'
 const App = () => {
   const {IsLogin } = useAppContext();
   // console.log(IsLogin)
@@ -23,6 +24,7 @@ const App = () => {
         {/* <Route path="/Forgot-password" element={<ForgotPassword />} /> */}
         <Route path="/tech" element={<Tech/>}></Route>
         <Route path="/create_society" element={<Society_form/>}></Route>
+        <Route path= "/page" element = {<Page/>}></Route>
       </Routes>
     </div>
 )}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Society_form = () => {
     const [eventFields, setEventFields] = useState([{ 
@@ -14,13 +15,14 @@ const Society_form = () => {
         proff: '',
         exbo: '',
     })
-        function handleChange(e) {
-            const { name, value } = e.target;
-            setForm(prevForm => ({
-                ...prevForm,
-                [name]: value
-            }));
-        }
+    const navigate = useNavigate();
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setForm(prevForm => ({
+            ...prevForm,
+            [name]: value
+        }));
+    }
     const [isNext,setisNext] = useState(false);
     const addEventField = (e) => {
         e.preventDefault();
@@ -39,13 +41,27 @@ const Society_form = () => {
     };
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        const payload = {
+            name: form.name,
+            desc: form.desc,
+            image: form.image,
+            proff: form.proff,
+            exbo: form.exbo,
+            events: eventFields,
+        };
         try{
-            const endpoint = "http://localhost:5000/society"
-            const payload = {name : form.name , desc : form.desc , image : form.image , proff : form.proff , exbo : form.exbo , events : eventFields};
+            const endpoint = "http://localhost:5000/society";
             const {data} = await axios.post(endpoint,payload);
             console.log(data);
         }catch(error){
-            console.log(error.response.data);
+            console.log(error.response?.data || error);
+        } finally {
+            navigate('/page', {
+                state: {
+                    society: form,
+                    events: eventFields,
+                }
+            });
         }
     }
     const removeEvent = (id) => {
